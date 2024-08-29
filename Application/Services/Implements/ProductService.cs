@@ -25,7 +25,7 @@ namespace Application.Services.Implements
         public void Create(Product entity)
         {
             _repository.Create(entity);
-            _repository.SaveChanges();
+          
         }
 
         public bool Delete(Product entity)
@@ -34,7 +34,6 @@ namespace Application.Services.Implements
             if (productObj != null)
             {
                 _repository.Delete(productObj);
-                _repository.SaveChanges();
                 return true;
             }
             return false;
@@ -58,7 +57,6 @@ namespace Application.Services.Implements
         public void Update(Product entity)
         {
             _repository.Update(entity);
-            _repository.SaveChanges();
         }
     }
 }

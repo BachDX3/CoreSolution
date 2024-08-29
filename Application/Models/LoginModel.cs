@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Application.Models
 {
-    public class ProductModel
+    public class LoginModel
     {
         [Required]
-        public string Name { get; set; } = string.Empty;
-        public decimal Price { get; set; }
-        public string? Description { get; set; }
+        [Range(1,100)]
+        public string UserName { get; set; } = string.Empty;
+        [Required]
+        [Range(1, 50)]
+        public string Password { get; set; } = string.Empty;
     }
 }

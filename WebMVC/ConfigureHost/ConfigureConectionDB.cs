@@ -8,7 +8,7 @@ namespace WebMVC.ConfigureHost
 {
     public static class ConfigureConectionDB
     {
-        public static void ConfigureDbContext(IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureDbContext( this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
@@ -16,6 +16,7 @@ namespace WebMVC.ConfigureHost
             {
                 options.UseSqlServer(connectionString, b => b.MigrationsAssembly("WebMVC"));
             });
+            return services;
         }
     }
 }

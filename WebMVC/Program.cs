@@ -22,13 +22,18 @@ builder.Services.AddControllersWithViews();
 //    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("WebMVC"));
 
 //});
-ConfigureConectionDB.ConfigureDbContext(builder.Services, builder.Configuration);
-
+// Add Dbcontext
+var dbcontext = builder.Services.ConfigureDbContext(builder.Configuration);
+// Add repository
 builder.Services.AddRepository();
-
+// Add services
 builder.Services.AddProductServices();
-
+// Add mapper
 builder.Services.AddMapper();
+// Add identity custom
+builder.Services.AddIdentityCustom();
+// Add authentication custom
+builder.Services.AddAuthenticationCustom();
 
 var app = builder.Build();
 

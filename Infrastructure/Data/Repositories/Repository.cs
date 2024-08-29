@@ -36,14 +36,10 @@ namespace Infrastructure.Data.Repositories
             return _dbContext.Set<T>().ToList();
         }
 
-        public void SaveChanges()
-        {
-            _dbContext.SaveChanges();
-        }
-
         public void Update(T entity)
         {
             _dbContext.Set<T>().Update(entity);
+            _dbContext.SaveChanges();
         }
         public T GetById(string id)
         {

@@ -7,7 +7,7 @@ namespace WebMVC.ConfigureHost
     {
         public static IServiceCollection AddProductServices(this IServiceCollection services)
         {
-            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductService, RegisterService>();
             return services;
         }
     }
