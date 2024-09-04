@@ -41,7 +41,7 @@ namespace Infrastructure.Data.Repositories
             _dbContext.Set<T>().Update(entity);
             _dbContext.SaveChanges();
         }
-        public T GetById(string id)
+        public T? GetById(string id)
         {
             return _dbContext.Set<T>().Find(id);
         }

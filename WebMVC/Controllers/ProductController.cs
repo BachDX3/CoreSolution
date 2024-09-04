@@ -3,6 +3,7 @@ using Application.Services;
 using Application.Services.Implements;
 using AutoMapper;
 using Domain.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -76,7 +77,7 @@ namespace WebMVC.Controllers
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, IFormCollection collection)
+        public ActionResult Edit(string id, ProductModel productModel)
         {
             try
             {
@@ -85,9 +86,9 @@ namespace WebMVC.Controllers
                 {
                     return NotFound("Product not found.");
                 }
-                productObj.Name = collection["Name"];
-                productObj.Price = decimal.TryParse(collection["Price"], out decimal price) ? price : 0;
-                productObj.Description = collection["Description"];
+                productObj.Name = productModel.Name;
+                productObj.Price =  productModel.Price;
+                productObj.Description = productModel.Description;
                 _productServices.Update(productObj);
                 return RedirectToAction(nameof(Index));
             }
@@ -98,9 +99,13 @@ namespace WebMVC.Controllers
         }
 
         // GET: ProductController/Delete/5
-        public ActionResult Delete(string id)
+        public IActionResult Delete(string id)
         {
-            var productObj = _productServices.GetProducBytId(id);
+            if(!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+            Product productObj = _productServices.GetProducBytId(id);
             return View(productObj);
         }
 
@@ -111,11 +116,11 @@ namespace WebMVC.Controllers
         {
             try
             {
-                var product = _productServices.GetProducBytId(id);
-                if (product == null)
+                if (ModelState.IsValid)
                 {
                     return NotFound("Product not found.");
                 }
+                var product = _productServices.GetProducBytId(id);
 
                 _productServices.Delete(product);
                 return RedirectToAction(nameof(Index));

@@ -10,10 +10,10 @@ namespace Application.Models
     public class LoginModel
     {
         [Required]
-        [Range(1,100)]
-        public string UserName { get; set; } = string.Empty;
+        [Display(Name ="User name")]
+        public string UserName { get; set; } 
         [Required]
-        [Range(1, 50)]
-        public string Password { get; set; } = string.Empty;
+        [Display(Name = "Password")]
+        public string Password { get; set; }  
     }
 }

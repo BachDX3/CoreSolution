@@ -13,7 +13,7 @@ namespace Application.Data.Repositories
         void Update(T entity);
         void Delete(T entity);
         IEnumerable<T> FindAll();
-        T GetById(string id);
+        T? GetById(string id);
 
     }
 }

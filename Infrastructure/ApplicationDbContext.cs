@@ -17,19 +17,25 @@ namespace Infrastructure
 
         }
         public DbSet<Product> Products { get; set; }
+#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
         public DbSet<User> Users { get; set; }
+#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
+
+#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
         public DbSet<Role> Roles { get; set; }
+#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
 
         //lop nay cho phep chi dinh cau hinh mà khong can sua lop thuc the
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.Entity<Product>(entity =>
+            builder.Entity<Product>(entity =>
             {
                 entity.Property(e => e.Price).HasColumnType("decimal(18,0)");
             });
-            SeedRoles(modelBuilder);
+
+            SeedRoles(builder);
         }
 
         private static void SeedRoles(ModelBuilder modelBuilder)
