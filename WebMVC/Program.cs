@@ -14,7 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
- // Add Dbcontext
+// Add authentication custom
+builder.Services.AddAuthenticationCustom();
+// Add identity custom
+builder.Services.AddIdentityCustom();
+// Add Dbcontext
 builder.Services.ConfigureDbContext(builder.Configuration);
 // Add repository
 builder.Services.AddRepository();
@@ -22,10 +26,6 @@ builder.Services.AddRepository();
 builder.Services.AddProductServices();
 // Add mapper
 builder.Services.AddMapper();
-// Add identity custom
-builder.Services.AddIdentityCustom();
-// Add authentication custom
-builder.Services.AddAuthenticationCustom();
 
 var app = builder.Build();
 

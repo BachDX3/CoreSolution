@@ -37,7 +37,7 @@ namespace WebMVC.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> Login(LoginModel userLogin)
+        public async Task<IActionResult> Login(LoginModel userLogin)
         {
             if (!ModelState.IsValid)
             {
@@ -49,14 +49,17 @@ namespace WebMVC.Controllers
                 var result = await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, lockoutOnFailure:false);
                 if (result.Succeeded)
                 {
-                    System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-                    if (currentUser.Identity.IsAuthenticated)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Index", "Home");
                 }
             }
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Home");
         }
         // GET: LoginController/Details/5
         public ActionResult Details(int id)
