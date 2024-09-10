@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using WebMVC.Models;
 
 namespace WebMVC.Controllers
 {
@@ -14,6 +15,7 @@ namespace WebMVC.Controllers
         private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private UserInforModel userInforModel { get; set; } = new UserInforModel();
         private bool _isLogin { get; set; } = true;
 
         public LoginController(UserManager<User> userManager, RoleManager<Role> roleManager, IConfiguration configuration, SignInManager<User> signInManager)
@@ -49,6 +51,11 @@ namespace WebMVC.Controllers
                 var result = await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, lockoutOnFailure:false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.GetUserAsync(User);
+                    userInforModel.FirstName = user.FirstName;
+                    userInforModel.LastName = user.LastName;
+                    userInforModel.Email = user.Email;
+                    userInforModel.PhoneNumber = user.PhoneNumber;
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -59,6 +66,7 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
+            userInforModel = null;
             return RedirectToAction("Index","Home");
         }
         // GET: LoginController/Details/5
@@ -100,14 +108,14 @@ namespace WebMVC.Controllers
                 PhoneNumber = register.PhoneNumber,
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
-            if(await _roleManager.RoleExistsAsync("Admin"))
+            if(await _roleManager.RoleExistsAsync("User"))
             {
                 // add user the database
                 var result = await _userManager.CreateAsync(user, register.Password);
                 if (result.Succeeded)
                 {
                     // assign role
-                  var checkAddRole = await _userManager.AddToRoleAsync(user, "Admin");
+                  var checkAddRole = await _userManager.AddToRoleAsync(user, "User");
                     if (checkAddRole.Succeeded)
                     {
                         return RedirectToAction("Home");

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebMVC.Controllers
 {
+    
     public class ProductController : Controller
     {
         private readonly IProductService _productServices;
@@ -20,9 +21,10 @@ namespace WebMVC.Controllers
         }
 
         // GET: ProductController
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var products = _productServices.FindAll();
+            var products = _productServices.FindAll().ToList();
             //var products = _productServices.GetAllProduct();
             return View(products);
         }

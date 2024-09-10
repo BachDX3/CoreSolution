@@ -35,22 +35,24 @@
                        
                             @if(SignInManager.IsSignedIn(User))
                             {
+                                var user = await UserManager.GetUserAsync(User);
+                                string fullName = user.FirstName + " " + user.LastName;
                                 <li class="nav-item">
-                                    <a>Hello, @User.Identity?.Name!</a>
+                                    <a>Hello @fullName </a>
                                 </li>
                                 <li class="nav-item">
                                     <form method="post" asp-controller="Login" asp-action="LogOut">
                                         <button type="submit" class="nav-link btn btn-link py-0">
-                                             Sign out
+                                                Sign out
                                         </button>
                                     </form>
                                 </li>
                             }
                             else
                             {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Sign in</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Sign in</a>
+                                </li>
                             }
                         
                         <li class="nav-item">

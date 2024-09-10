@@ -15,6 +15,7 @@ namespace WebMVC.ConfigureHost
             }).AddCookie(options =>
             {
                 options.LoginPath = "/Login/Login";
+                options.AccessDeniedPath = "/Home/Index";
             });
             return services;
         }

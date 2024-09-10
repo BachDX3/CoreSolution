@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.Entity.Product>
+﻿@model List<Domain.Entity.Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
             </th>
             <th></th>
         </tr>

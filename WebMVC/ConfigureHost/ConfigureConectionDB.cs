@@ -14,7 +14,7 @@ namespace WebMVC.ConfigureHost
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(connectionString, b => b.MigrationsAssembly("WebMVC"));
+                options.UseSqlServer(connectionString);
             });
             return services;
         }
