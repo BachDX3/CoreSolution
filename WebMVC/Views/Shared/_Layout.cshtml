@@ -38,7 +38,7 @@
                                 var user = await UserManager.GetUserAsync(User);
                                 string fullName = user.FirstName + " " + user.LastName;
                                 <li class="nav-item">
-                                    <a>Hello @fullName </a>
+                                    <span>Hello @fullName </span>
                                 </li>
                                 <li class="nav-item">
                                     <form method="post" asp-controller="Login" asp-action="LogOut">
@@ -53,11 +53,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Sign in</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Create">Sign Up</a>
+                                </li>
                             }
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Create">Sign Up</a>
-                        </li>
                     </ul>
                 </div>
             </div>

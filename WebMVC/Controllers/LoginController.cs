@@ -28,7 +28,7 @@ namespace WebMVC.Controllers
 
         // GET: LoginController
         [HttpGet]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -70,13 +70,13 @@ namespace WebMVC.Controllers
             return RedirectToAction("Index","Home");
         }
         // GET: LoginController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }
 
         // GET: LoginController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -85,7 +85,7 @@ namespace WebMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RegisterModel register)
+        public async Task<IActionResult> Create(RegisterModel register)
         {
 
             if (!ModelState.IsValid)
@@ -126,7 +126,7 @@ namespace WebMVC.Controllers
         }
 
         // GET: LoginController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             return View();
         }
@@ -134,7 +134,7 @@ namespace WebMVC.Controllers
         // POST: LoginController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace WebMVC.Controllers
         // POST: LoginController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
@@ -165,6 +165,11 @@ namespace WebMVC.Controllers
             {
                 return View();
             }
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

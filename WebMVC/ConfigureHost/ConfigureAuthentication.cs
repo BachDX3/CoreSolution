@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 
 namespace WebMVC.ConfigureHost
 {
@@ -9,13 +10,10 @@ namespace WebMVC.ConfigureHost
         {
             services.AddAuthentication(options =>
             {
+                
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            }).AddCookie(options =>
-            {
-                options.LoginPath = "/Login/Login";
-                options.AccessDeniedPath = "/Home/Index";
             });
             return services;
         }
