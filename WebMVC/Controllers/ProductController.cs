@@ -14,14 +14,16 @@ namespace WebMVC.Controllers
     {
         private readonly IProductService _productServices;
         private readonly IMapper _mapper;
-        public ProductController(IProductService productServices, IMapper mapper)
+        private readonly ILogger<ProductController> _logger;
+        public ProductController(IProductService productServices, IMapper mapper, ILogger<ProductController> logger)
         {
             _productServices = productServices;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // GET: ProductController
-        [Authorize(Roles = "Admin")]
+      //  [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var products = _productServices.FindAll().ToList();

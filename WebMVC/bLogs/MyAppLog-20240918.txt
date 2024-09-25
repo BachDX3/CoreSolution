@@ -1,0 +1,37 @@
+2024-09-18 11:30:26.596 +07:00 [INF] User profile is available. Using 'C:\Users\BachDX3\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-18 11:30:26.838 +07:00 [INF] Now listening on: https://localhost:7069
+2024-09-18 11:30:26.839 +07:00 [INF] Now listening on: http://localhost:5088
+2024-09-18 11:30:26.842 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-18 11:30:26.843 +07:00 [INF] Hosting environment: Development
+2024-09-18 11:30:26.844 +07:00 [INF] Content root path: F:\Projects\Net Core\CoreSolution\WebMVC
+2024-09-18 11:30:28.505 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7069/ - null null
+2024-09-18 11:30:28.675 +07:00 [INF] Executing endpoint 'WebMVC.Controllers.HomeController.Index (WebMVC)'
+2024-09-18 11:30:28.717 +07:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller WebMVC.Controllers.HomeController (WebMVC).
+2024-09-18 11:30:28.732 +07:00 [INF] Executing ViewResult, running view Index.
+2024-09-18 11:30:28.882 +07:00 [INF] Executed ViewResult - view Index executed in 152.7546ms.
+2024-09-18 11:30:28.886 +07:00 [INF] Executed action WebMVC.Controllers.HomeController.Index (WebMVC) in 162.7635ms
+2024-09-18 11:30:28.888 +07:00 [INF] Executed endpoint 'WebMVC.Controllers.HomeController.Index (WebMVC)'
+2024-09-18 11:30:28.895 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7069/ - 200 null text/html; charset=utf-8 397.4279ms
+2024-09-18 11:30:28.902 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7069/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-18 11:30:28.904 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7069/_vs/browserLink - null null
+2024-09-18 11:30:28.917 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7069/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 14.7252ms
+2024-09-18 11:30:28.947 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7069/_vs/browserLink - 200 null text/javascript; charset=UTF-8 43.1408ms
+2024-09-18 11:30:31.569 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7069/Product - null null
+2024-09-18 11:30:31.596 +07:00 [INF] Executing endpoint 'WebMVC.Controllers.ProductController.Index (WebMVC)'
+2024-09-18 11:30:31.603 +07:00 [INF] Route matched with {action = "Index", controller = "Product"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller WebMVC.Controllers.ProductController (WebMVC).
+2024-09-18 11:30:31.615 +07:00 [INF] This is an Information log, general info about app flow.
+2024-09-18 11:30:31.616 +07:00 [WRN] This is a Warning log, indicating a potential issue.
+2024-09-18 11:30:31.618 +07:00 [ERR] This is an Error log, indicating a failure in the current operation.
+2024-09-18 11:30:31.619 +07:00 [FTL] This is a Critical log, indicating a serious failure in the application.
+2024-09-18 11:30:32.499 +07:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CreatedDate], [p].[DeleteFlag], [p].[Description], [p].[Name], [p].[Price], [p].[UpdatedDate]
+FROM [Product] AS [p]
+2024-09-18 11:30:32.542 +07:00 [INF] Executing ViewResult, running view Index.
+2024-09-18 11:30:32.564 +07:00 [INF] Executed ViewResult - view Index executed in 22.8123ms.
+2024-09-18 11:30:32.572 +07:00 [INF] Executed action WebMVC.Controllers.ProductController.Index (WebMVC) in 963.4463ms
+2024-09-18 11:30:32.577 +07:00 [INF] Executed endpoint 'WebMVC.Controllers.ProductController.Index (WebMVC)'
+2024-09-18 11:30:32.589 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7069/_vs/browserLink - null null
+2024-09-18 11:30:32.590 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7069/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-18 11:30:32.592 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7069/Product - 200 null text/html; charset=utf-8 1022.4879ms
+2024-09-18 11:30:32.604 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7069/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 18.852ms
+2024-09-18 11:30:32.620 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7069/_vs/browserLink - 200 null text/javascript; charset=UTF-8 31.7537ms

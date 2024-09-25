@@ -2,6 +2,7 @@
 using Application.Models;
 using AutoMapper;
 using Domain.Entity;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace Application.Services.Implements
         private readonly IProductRepository _productRepository;
         private readonly IRepository<Product> _repository;
         private readonly IMapper _mapper;
-        public ProductService(IMapper mapper, IProductRepository productRepository, IRepository<Product> repository)
+        private ILogger<ProductService> _logger { get; }
+        public ProductService(IMapper mapper, IProductRepository productRepository, IRepository<Product> repository,ILogger<ProductService> logger)
         {
             _productRepository = productRepository;
             _repository = repository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public void Create(Product entity)
@@ -41,7 +44,22 @@ namespace Application.Services.Implements
 
         public IEnumerable<Product> FindAll()
         {
-            return _repository.FindAll();
+            _logger.LogTrace("This is a Trace log, the most detailed information.");
+            _logger.LogInformation("Start get all");
+            try
+            {
+             
+                return _repository.FindAll();
+
+            }
+            catch (Exception ex)
+            {
+
+                 _logger.LogError(ex.ToString()) ;
+            }
+            return null;
+            _logger.LogInformation("End get all");
+
         }
 
         //public IEnumerable<ProductViewModel> GetAllProduct()

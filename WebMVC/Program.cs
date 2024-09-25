@@ -9,11 +9,22 @@ using Application;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Mappings;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+// Configure host
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/MyAppLog.txt")
+    .CreateLogger();
+
+//Use Serilog for logging
+builder.Host.UseSerilog();
 
 // Add cookie custom
 builder.Services.AddCookies();
