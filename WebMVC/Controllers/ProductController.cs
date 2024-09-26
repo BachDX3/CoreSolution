@@ -14,12 +14,12 @@ namespace WebMVC.Controllers
     {
         private readonly IProductService _productServices;
         private readonly IMapper _mapper;
-        private readonly ILogger<ProductController> _logger;
+        //private readonly ILogger<ProductController> _logger;
         public ProductController(IProductService productServices, IMapper mapper, ILogger<ProductController> logger)
         {
             _productServices = productServices;
             _mapper = mapper;
-            _logger = logger;
+           // _logger = logger;
         }
 
         // GET: ProductController

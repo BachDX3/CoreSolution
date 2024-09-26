@@ -19,7 +19,6 @@ builder.Services.AddControllersWithViews();
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
-    .WriteTo.Console()
     .WriteTo.File("Logs/MyAppLog.txt")
     .CreateLogger();
 
@@ -29,7 +28,7 @@ builder.Host.UseSerilog();
 // Add cookie custom
 builder.Services.AddCookies();
 
-// Configure authentication custom
+// Configure authentication custom  
 builder.Services.AddAuthenticationCustom();
 
 // Configure identity custom
