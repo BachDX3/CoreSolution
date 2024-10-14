@@ -47,19 +47,13 @@ namespace WebMVC.Controllers
             }
             else
             {
-
+                // custom function PasswordSignInAsync
                 var result = await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, lockoutOnFailure:false);
-                if (result.Succeeded)
-                {
-                    var user = await _userManager.GetUserAsync(User);
-                    userInforModel.FirstName = user.FirstName;
-                    userInforModel.LastName = user.LastName;
-                    userInforModel.Email = user.Email;
-                    userInforModel.PhoneNumber = user.PhoneNumber;
+                if (result.Succeeded) {
                     return RedirectToAction("Index", "Home");
-                }
+                } 
             }
-            return RedirectToAction("Index","Home");
+            return View();
         }
 
         [HttpPost]

@@ -14,25 +14,35 @@ namespace Application.Models
         [MaxLength(256)]
         [Display(Name ="User name")]
         public string UserName { get; set; } = string.Empty;
+
         [Required]
         [MaxLength(100)]
         [Display(Name ="Password")]
+        [RequiredLowerCase(nameof(Password))]
+        [RequiredUpperCase(nameof(Password))]
+        [RequiredSpecicalSymbol(nameof(Password))]
+        [RequiredNumber(nameof(Password))]
         public string Password { get; set; } = string.Empty;
+
         [Required]
         [MaxLength(100)]
         [Display(Name ="First name")]
         public string FirstName { get; set; }= string.Empty;
+
         [Required]
         [MaxLength(100)]
         [Display(Name ="Last name")]
         public string LastName { get; set; } = string.Empty;
+
         [Required]
         [MaxLength(256)]
         [Display(Name = "Email")]
         public string Email { get; set; } = string.Empty;
+
         [MaxLength]
         [Display(Name = "ConcurrencyStamp")]
         public string ConcurrencyStamp { get; set; } = string.Empty;
+
         [Display(Name = "Phone number")]
         [PhoneNumberArttibute(nameof(PhoneNumber))]
         public string PhoneNumber { get; set; } 
