@@ -1,5 +1,7 @@
 ﻿using Application.Models;
+using Application.Utility.Identity;
 using Domain.Entity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,28 +13,35 @@ namespace WebMVC.Controllers
 {
     public class LoginController : Controller
     {
+        #region Private member
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly ApplicationSignInManager _applicationSignInManager;
+
+        private readonly Microsoft.AspNetCore.Identity.SignInResult signInResult;
         private UserInforModel userInforModel { get; set; } = new UserInforModel();
         private bool _isLogin { get; set; } = true;
+        #endregion
 
-        public LoginController(UserManager<User> userManager, RoleManager<Role> roleManager, IConfiguration configuration, SignInManager<User> signInManager)
+        #region Default contructor
+        public LoginController(UserManager<User> userManager,
+           RoleManager<Role> roleManager,
+           IConfiguration configuration,
+           SignInManager<User> signInManager,
+           ApplicationSignInManager applicationSignInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _signInManager = signInManager;
+            _applicationSignInManager = applicationSignInManager;
         }
+        #endregion
 
+        #region Login 
         // GET: LoginController
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult Login()
         {
@@ -47,22 +56,52 @@ namespace WebMVC.Controllers
             }
             else
             {
-                // custom function PasswordSignInAsync
-                var result = await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, lockoutOnFailure:false);
-                if (result.Succeeded) {
+                // check user by name
+                //User userObject= await _userManager.FindByNameAsync(userLogin.UserName);
+
+                //if (userObject != null)
+                //{
+                //    // check user lock
+                //    bool checkUserIsLock = await _userManager.IsLockedOutAsync(userObject);
+                //    if (!checkUserIsLock)
+                //    {
+
+                //        // check user password 
+                //        bool checkPasswordSignIn = await _userManager.CheckPasswordAsync(userObject, userLogin.Password);
+                //        if (!checkPasswordSignIn)
+                //        {
+                //            // sign in by password and user name
+                //            signInResult =  await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, lockoutOnFailure: false);
+                //        }
+                //    }
+                //}
+                var signInResult =
+                    await _applicationSignInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, false, lockoutOnFailure: false);
+
+                if (signInResult.Succeeded)
+                {
                     return RedirectToAction("Index", "Home");
-                } 
+                }
             }
             return View();
         }
+        #endregion
+
+        #region Log Out 
 
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
             userInforModel = null;
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
+        #endregion
+
+
+        #region CRUD User
+
+       
         // GET: LoginController/Details/5
         public IActionResult Details(int id)
         {
@@ -160,10 +199,13 @@ namespace WebMVC.Controllers
                 return View();
             }
         }
+        #endregion
 
+        #region Access denied view
         public IActionResult AccessDenied()
         {
             return View();
         }
+        #endregion
     }
 }
