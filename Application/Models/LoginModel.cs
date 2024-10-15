@@ -12,8 +12,13 @@ namespace Application.Models
         [Required]
         [Display(Name ="User name")]
         public string UserName { get; set; } 
+
         [Required]
         [Display(Name = "Password")]
-        public string Password { get; set; }  
+        public string Password { get; set; }
+
+        [Required]
+        [Display(Name= "RememberMe")]
+        public bool RememberMe { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Application.Utility.Validation
         /// <returns></returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var regex = new Regex(" (?=.*[a-z])");
+            var regex = new Regex("(?=.*[a-z])");
             if (value!=null)
             {
                 if (!regex.IsMatch(value.ToString()))
@@ -55,7 +55,7 @@ namespace Application.Utility.Validation
         /// <returns></returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var regex = new Regex(" (?=.*[A-Z])");
+            var regex = new Regex("(?=.*[A-Z])");
             if (value!=null)
             {
                 if (!regex.IsMatch(value.ToString()))

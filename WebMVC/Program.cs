@@ -22,14 +22,16 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File("Logs/MyAppLog.txt")
     .CreateLogger();
 
+
+
 // Use serilog for logging
 builder.Host.UseSerilog();
 
 // Add cookie custom
-builder.Services.AddCookies();
+//builder.Services.AddCookies();
 
 // Add configure authentication custom  
-builder.Services.AddAuthenticationCustom();
+//builder.Services.AddAuthenticationCustom();
 
 // Add configure identity custom
 builder.Services.AddIdentityCustom();
@@ -45,6 +47,7 @@ builder.Services.AddProductServices();
 
 // Add configure mapper
 builder.Services.AddMapper();
+
 
 var app = builder.Build();
 

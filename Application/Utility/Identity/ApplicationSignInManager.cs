@@ -1,27 +1,22 @@
 ﻿using Application.Models;
 using Domain.Entity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+ 
 
 namespace Application.Utility.Identity
 {
-    public class ApplicationSignInManager : SignInManager<LoginModel>
+    public class ApplicationSignInManager : SignInManager<User>
     {
         private readonly SignInResult signInStatus;
-        public ApplicationSignInManager(UserManager<LoginModel> userManager, 
+        public ApplicationSignInManager(UserManager<User> userManager, 
             IHttpContextAccessor contextAccessor, 
-            IUserClaimsPrincipalFactory<LoginModel> claimsFactory, 
+            IUserClaimsPrincipalFactory<User> claimsFactory, 
             IOptions<IdentityOptions> optionsAccessor, 
-            ILogger<SignInManager<LoginModel>> logger, IAuthenticationSchemeProvider schemes) 
+            ILogger<SignInManager<User>> logger, IAuthenticationSchemeProvider schemes) 
             : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
         {
         }
@@ -29,14 +24,14 @@ namespace Application.Utility.Identity
 
 
         #region Sign with password custom
-        public override async Task<SignInResult> PasswordSignInAsync(LoginModel user, 
+        public override async Task<SignInResult> PasswordSignInAsync(User user, 
             string password, 
             bool isPersistent, 
             bool lockoutOnFailure)
         {
             if (this.UserManager != null)
             {
-                Task<LoginModel> userManager = this.UserManager.FindByNameAsync(user.UserName);
+                Task<User> userManager = this.UserManager.FindByNameAsync(user.UserName);
                 if (userManager != null)
                 {
                     Task<bool> checkUserLocked = this.UserManager.IsLockedOutAsync(user);
