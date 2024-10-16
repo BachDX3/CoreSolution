@@ -31,7 +31,7 @@ builder.Host.UseSerilog();
 //builder.Services.AddCookies();
 
 // Add configure authentication custom  
-//builder.Services.AddAuthenticationCustom();
+builder.Services.AddAuthenticationCustom();
 
 // Add configure identity custom
 builder.Services.AddIdentityCustom();
@@ -66,6 +66,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

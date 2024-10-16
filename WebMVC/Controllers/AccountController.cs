@@ -17,20 +17,17 @@ namespace WebMVC.Controllers
     public class AccountController : Controller
     {
         #region Private member
-
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IUserStore<User> _userStore;
         private readonly IConfiguration _configuration;
         private ILogger<AccountController> _logger { get; }
-
         #endregion
+
         #region Public member
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
         #endregion
-
 
         #region Default contructor
         public AccountController(UserManager<User> userManager,
@@ -53,11 +50,12 @@ namespace WebMVC.Controllers
         #region Login 
         // GET: LoginController
         [HttpGet]
-        public async Task<IActionResult> Login()
+        [AllowAnonymous]
+        public IActionResult Login(string? returnUrl)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return  View();
         }
-
 
         /// <summary>
         /// Login using <see cref="LoginModel"/>  with parameter userLogin
@@ -65,28 +63,37 @@ namespace WebMVC.Controllers
         /// <param name="userLogin">user login model</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModel userLogin)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel userLogin, string? returnUrl)
         {
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            // get return url
+            //returnURL = Request.Headers["Referer"].ToString();
+
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, userLogin.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("Index","Home");
+
+                    // Check if the ReturnUrl is not null and is a local URL
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        // Redirect to default page
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return RedirectToAction("Error");
-                }
-            }
-            else 
-            {
-                return View();
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View("Error");
             }
             return View();
+           
         }
         #endregion
 
@@ -178,25 +185,15 @@ namespace WebMVC.Controllers
                             {
                                 return RedirectToPage("RegisterConfirmation", new { email = user.Email, returnUrl = returnUrl });
                             }
-                            else
-                            {
-                                await _signInManager.SignInAsync(user, isPersistent: false);
-                                return RedirectToAction("Index", "Home");
-                            }
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return RedirectToAction("Index", "Home");
                         }
-                        else
-                        {
-                            _logger.LogInformation("Can't add role for user register");
-                            return RedirectToAction("Error", "Account");
-                        }
+                        _logger.LogInformation("Can't add role for user register");
+                        return RedirectToAction("Error", "Account");
                     }
-
                 }
-                else
-                {
-                    _logger.LogInformation("Can't add role for user register");
-                    return RedirectToAction("Error", "Account");
-                }
+                _logger.LogInformation("Can't add role for user register");
+                return RedirectToAction("Error", "Account");
             }
             return View();
         }
